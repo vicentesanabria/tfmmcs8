@@ -401,6 +401,7 @@ function ayuda () {
 	echo
 	echo -e "Opciones:"
 	echo -e "	${yellow}-h: ${end} Ofrece esta ayuda"
+	echo -e "	${yellow}-a: ${end} Instala todos los elementos (requisitos, marcadores y aplicaciones)"
 	echo -e "	${yellow}-b: ${end} Instala los marcadores en Firefox"
 	echo -e "	${yellow}-p: ${end} Instala las aplicaciones de escritorio"
 	echo -e "	${yellow}-t: ${end} Instala los requisitos necesarios de las aplicaciones"
@@ -424,39 +425,40 @@ if [ "$(id -u)" == "0" ]; then
 fi
 
 cabecera
+tput civis
 if [[ $1 == "-h" ]]; then
 	ayuda
 #Instalación de todo
 elif [[ $1 == "-a" ]]; then
-	tput civis
 	requisitos
 	sleep 3
+	echo
 	marcadores
 	sleep 3
+	echo
 	entorno_git
+	sleep 3
+	echo
 	clonar_proyectos
 	sleep 3
+	echo
 	aplicaciones
-	tput cnorm
 #Instalación de los marcadores en Firefox
 elif [[ $1 == "-b" ]]; then
-	tput civis
 	marcadores
-	tput cnorm
 #Instalación de las aplicaciones
 elif [[ $1 == "-p" ]]; then
-	tput civis
 	entorno_git
+	sleep 3
 	echo
 	clonar_proyectos
+	sleep 3
 	echo
 	aplicaciones
-	tput cnorm
 #Instalación de los requisitos software
 elif [[ $1 == "-t" ]]; then
-	tput civis
 	requisitos
-	tput cnorm
 else
 	ayuda
 fi
+tput cnorm
