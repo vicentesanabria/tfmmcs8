@@ -134,11 +134,27 @@ function entorno_git () {
 	# Se crea la carpeta para alojar los repositorios
 	if [ ! -d $path_actual/git ]; then
 		mkdir $path_actual/git > /dev/null 2>&1
-	#else
+		checkfin
+	else
+		for repo in $repositorios; do
+			repotmp="$(echo $repositorio | awk -F '/' '{print $NF}')"
+			if [ -d $path_actual/git/$repotmp ]; then
+				echo -e "${red}[!]${end}${yellow} Se ha detectado que posee una carpeta de la herramienta $repotemp.\n${end}"
+				echo -e "${red}[!]${end}${yellow} Si continua, podrían sobreescribirse ficheros de configuración que haya podido modificar.\n${end}"
+				read -p "¿Desea continuar (s/N)? " choice
+				choice=${choice,,,,}
+				if [[ $choice =~ ^(si|s|S|Si|SI) ]]; then
+					echo -ne "${yellow}[!]${end}${gray} Carpeta del repositorio $repotmp eliminada ..... ${end}"
+					rm -rf $path_actual/git/$repotmp > /dev/null 2>&1
+					checkfin
+				else
+					continue
+				fi
+			fi
+		done
 		# Si la carpeta ya existía, se borra su contenido
 	#	rm -rf $path_actual/git/* > /dev/null 2>&1
 	fi
-	checkfin
 	githome="$path_actual/git"
 
 	# Se comprueba si está el paquete git instalado
@@ -153,21 +169,12 @@ function clonar_proyectos () {
 	echo -e "${blue}[*]${end}${gray} Clonando repositorios: \n${end}"
 	for repositorio in $repositorios; do
 		repotemp="$(echo $repositorio | awk -F '/' '{print $NF}')"
-		if [ -d $githome/$repotemp ]; then
-			echo -e "${red}[!]${end}${yellow} Se ha detectado que posee una carpeta de la herramienta $repotemp.\n${end}"
-			echo -e "${red}[!]${end}${yellow} Si continua, podrían sobreescribirse ficheros de configuración que haya podido modificar.\n${end}"
-			read -p "¿Desea continuar (S/n)? " choice
-			choice=${choice,,,,,}
-			if [[ $choice =~ ^(si|s|S|Si|SI| ) ]] || [[ -z $choice ]]; then
-				echo
-			else
-				continue
-			fi
+		if [ ! -d $githome/$repotemp ]; then
+			echo -ne "${cyan}[+]${end}${gray} Respositorio  $repotemp ............. ${end}"
+			git clone https://github.com/$repositorio $githome/$repotemp > /dev/null 2>&1
+			checkfin
+			sleep 2
 		fi
-		echo -ne "${cyan}[+]${end}${gray} Respositorio  $repotemp ............. ${end}"
-		git clone https://github.com/$repositorio $githome/$repotemp > /dev/null 2>&1
-		checkfin
-		sleep 2
 	done
 
 	echo -ne "${cyan}[+]${end}${gray} Respositorio  Maltego ............. ${end}"
