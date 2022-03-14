@@ -177,10 +177,13 @@ function clonar_proyectos () {
 		fi
 	done
 
-	echo -ne "${cyan}[+]${end}${gray} Respositorio  Maltego ............. ${end}"
-	mkdir $githome/maltego > /dev/null 2>&1
-	wget -O $githome/maltego/$vermaltego https://maltego-downloads.s3.us-east-2.amazonaws.com/linux/$vermaltego > /dev/null 2>&1
-	checkfin
+	dpkg -s maltego > /dev/null 2>&1
+	if [ "$(echo $?)" != "0" ]; then 
+		echo -ne "${cyan}[+]${end}${gray} Respositorio  Maltego ............. ${end}"
+		mkdir $githome/maltego > /dev/null 2>&1
+		wget -O $githome/maltego/$vermaltego https://maltego-downloads.s3.us-east-2.amazonaws.com/linux/$vermaltego > /dev/null 2>&1
+		checkfin
+	fi
 	echo
 }
 
@@ -245,15 +248,21 @@ function recon-ng () {
 
 function maltego () {
 
-	if [ -f $githome/maltego/$vermaltego ]; then
-		echo -ne "${cyan}[+]${end}${gray} Instalando Maltego ................. ${end}"
-		sudo dpkg -i $githome/maltego/Maltego.v4.3.0.deb > /dev/null 2>&1
-		checkfin
+	dpkg -s maltego > /dev/null 2>&1
+	if [ "$(echo $?)" != "0" ]; then
+		if [ -f $githome/maltego/$vermaltego ]; then
+			echo -ne "${cyan}[+]${end}${gray} Instalando Maltego ................. ${end}"
+			sudo dpkg -i $githome/maltego/Maltego.v4.3.0.deb > /dev/null 2>&1
+			checkfin
+		else
+			echo -e "${gray} No existe el fichero del instalador Maltego ${end}"
+			echo -ne "${cyan}[+]${end}${gray} Instalando Maltego ................. ${end}"
+			echo -e "[${red}X${end}]"
+			exit 1
+		fi
 	else
-		echo -e "${gray} No existe el fichero del instalador Maltego ${end}"
 		echo -ne "${cyan}[+]${end}${gray} Instalando Maltego ................. ${end}"
-		echo -e "[${red}X${end}]"
-		exit 1
+		echo -e "[${green}V${end}]"
 	fi
 
 	echo -e "\n\t${blue} ** Maltego **${end}${gray} Modo de uso:${end}\n"
