@@ -42,7 +42,7 @@ function marcadores () {
 				if [ -s /usr/bin/sqlite3 ]; then
 					# Se restauran los marcadores
 					echo -ne "${cyan}[+]${end}${gray} Importando marcadores ................. ${end}"
-					sqlite3 ~/.mozilla/firefox/*default-release/places.sqlite ".restore marcadores.osint.mcs8ed.sqlite"
+					sqlite3 ~/.mozilla/firefox/*default-release/places.sqlite ".restore marcadores.osint.mcs8ed.dump.sqlite"
 					checkfin
 					echo
 				else
