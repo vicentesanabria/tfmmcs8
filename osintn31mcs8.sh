@@ -50,7 +50,7 @@ function marcadores () {
 						checkfin
 						echo
 					else
-						echo -e "${cyan}[+]${end}${gray} Ejecute de nuevo el script más adelante para desplegar los marcadores. \n${end}"
+						echo -e "\n${cyan}[+]${end}${gray} Ejecute de nuevo el script más adelante para desplegar los marcadores. \n${end}"
 					fi
 				else
 					echo -e "${red}[!] ERROR:${end}${yellow} SQLite3 no está instalado. Ejecute ./osintn31mcs8.sh -t para configurarlo. \n${end}"
