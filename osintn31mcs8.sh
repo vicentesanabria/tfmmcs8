@@ -214,20 +214,6 @@ function theHarvester () {
 	echo -e "\t${cyan} > python3 theHarvester.py -h${end}\n"
 }
 
-function dmitry () {
-	dpkg -s maltego > /dev/null 2>&1
-	if [ "$(echo $?)" != "0" ]; then	
-		echo -ne "${cyan}[+]${end}${gray} Instalando dmitry ................. ${end}"
-		sudo apt install dmitry -y > /dev/null 2>&1
-		checkfin
-	else
-		echo -ne "${cyan}[+]${end}${gray} Dmitry ya instalado................. ${end}"
-		echo -e "[${yellow}!${end}]"
-	fi
-	echo -e "\n\t${blue} ** dmitry **${end}${gray} Modo de uso:${end}\n"
-	echo -e "\t${cyan} > dmitry ${end}\n"
-}
-
 function recon-ng () {
 	echo -ne "${cyan}[+]${end}${gray} Instalando recon-ng ................. ${end}"
 
@@ -249,29 +235,6 @@ function recon-ng () {
 	echo -e "\n\t${blue} ** recon-ng **${end}${gray} Modo de uso:${end}\n"
 	echo -e "\t${cyan} > cd $githome/recon-ng/ ${end}"
 	echo -e "\t${cyan} > ./recon-ng${end}\n"
-}
-
-function maltego () {
-
-	dpkg -s maltego > /dev/null 2>&1
-	if [ "$(echo $?)" != "0" ]; then
-		if [ -f $githome/maltego/$vermaltego ]; then
-			echo -ne "${cyan}[+]${end}${gray} Instalando Maltego ................. ${end}"
-			sudo dpkg -i $githome/maltego/Maltego.v4.3.0.deb > /dev/null 2>&1
-			checkfin
-		else
-			echo -e "${gray} No existe el fichero del instalador Maltego ${end}"
-			echo -ne "${cyan}[+]${end}${gray} Instalando Maltego ................. ${end}"
-			echo -e "[${red}X${end}]"
-			exit 1
-		fi
-	else
-		echo -ne "${cyan}[+]${end}${gray} Maltego ya instalado ................. ${end}"
-		echo -e "[${yellow}!${end}]"
-	fi
-
-	echo -e "\n\t${blue} ** Maltego **${end}${gray} Modo de uso:${end}\n"
-	echo -e "\t${cyan} > maltego${end}\n"
 }
 
 function Osintgram () {
@@ -401,6 +364,43 @@ function SocialPwned () {
 	echo -e "\t${cyan} > python3 socialpwned.py --credentials credentials.json --help${end}\n"
 }
 
+function maltego () {
+
+	dpkg -s maltego > /dev/null 2>&1
+	if [ "$(echo $?)" != "0" ]; then
+		if [ -f $githome/maltego/$vermaltego ]; then
+			echo -ne "${cyan}[+]${end}${gray} Instalando Maltego ................. ${end}"
+			sudo dpkg -i $githome/maltego/Maltego.v4.3.0.deb > /dev/null 2>&1
+			checkfin
+		else
+			echo -e "${gray} No existe el fichero del instalador Maltego ${end}"
+			echo -ne "${cyan}[+]${end}${gray} Instalando Maltego ................. ${end}"
+			echo -e "[${red}X${end}]"
+			exit 1
+		fi
+	else
+		echo -ne "${cyan}[+]${end}${gray} Maltego ya instalado ................. ${end}"
+		echo -e "[${yellow}!${end}]"
+	fi
+
+	echo -e "\n\t${blue} ** Maltego **${end}${gray} Modo de uso:${end}\n"
+	echo -e "\t${cyan} > maltego${end}\n"
+}
+
+function dmitry () {
+	dpkg -s maltego > /dev/null 2>&1
+	if [ "$(echo $?)" != "0" ]; then	
+		echo -ne "${cyan}[+]${end}${gray} Instalando dmitry ................. ${end}"
+		sudo apt install dmitry -y > /dev/null 2>&1
+		checkfin
+	else
+		echo -ne "${cyan}[+]${end}${gray} Dmitry ya instalado................. ${end}"
+		echo -e "[${yellow}!${end}]"
+	fi
+	echo -e "\n\t${blue} ** dmitry **${end}${gray} Modo de uso:${end}\n"
+	echo -e "\t${cyan} > dmitry ${end}\n"
+}
+
 function exiftool () {
 	dpkg -s exiftool > /dev/null 2>&1
 	if [ "$(echo $?)" != "0" ]; then	
@@ -418,15 +418,15 @@ function exiftool () {
 function aplicaciones () {
 	echo -e "${blue}[*]${end}${gray} Instalando aplicaciones: \n${end}"
 	theHarvester
-	dmitry
 	recon-ng
-	maltego
 	Osintgram
 	osrframework
 	h8mail
 	spiderfoot
 	GHunt
 	SocialPwned
+	maltego
+	dmitry
 	exiftool
 }
 
