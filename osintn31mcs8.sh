@@ -134,9 +134,9 @@ function entorno_git () {
 	# Se crea la carpeta para alojar los repositorios
 	if [ ! -d $path_actual/git ]; then
 		mkdir $path_actual/git > /dev/null 2>&1
-	else
+	#else
 		# Si la carpeta ya existía, se borra su contenido
-		rm -rf $path_actual/git/* > /dev/null 2>&1
+	#	rm -rf $path_actual/git/* > /dev/null 2>&1
 	fi
 	checkfin
 	githome="$path_actual/git"
