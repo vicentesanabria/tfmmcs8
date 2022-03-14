@@ -215,10 +215,15 @@ function theHarvester () {
 }
 
 function dmitry () {
-	echo -ne "${cyan}[+]${end}${gray} Instalando dmitry ................. ${end}"
-	sudo apt install dmitry -y > /dev/null 2>&1
-	checkfin
-
+	dpkg -s maltego > /dev/null 2>&1
+	if [ "$(echo $?)" != "0" ]; then	
+		echo -ne "${cyan}[+]${end}${gray} Instalando dmitry ................. ${end}"
+		sudo apt install dmitry -y > /dev/null 2>&1
+		checkfin
+	else
+		echo -ne "${cyan}[+]${end}${gray} Dmitry ya instalado................. ${end}"
+		echo -e "[${yellow}!${end}]"
+	fi
 	echo -e "\n\t${blue} ** dmitry **${end}${gray} Modo de uso:${end}\n"
 	echo -e "\t${cyan} > dmitry ${end}\n"
 }
@@ -261,8 +266,8 @@ function maltego () {
 			exit 1
 		fi
 	else
-		echo -ne "${cyan}[+]${end}${gray} Instalando Maltego ................. ${end}"
-		echo -e "[${green}V${end}]"
+		echo -ne "${cyan}[+]${end}${gray} Maltego ya instalado ................. ${end}"
+		echo -e "[${yellow}!${end}]"
 	fi
 
 	echo -e "\n\t${blue} ** Maltego **${end}${gray} Modo de uso:${end}\n"
@@ -397,10 +402,15 @@ function SocialPwned () {
 }
 
 function exiftool () {
-	echo -ne "${cyan}[+]${end}${gray} Instalando exiftool ................. ${end}"
-	sudo apt install exiftool -y > /dev/null 2>&1
-	checkfin
-
+	dpkg -s exiftool > /dev/null 2>&1
+	if [ "$(echo $?)" != "0" ]; then	
+		echo -ne "${cyan}[+]${end}${gray} Instalando exiftool ................. ${end}"
+		sudo apt install exiftool -y > /dev/null 2>&1
+		checkfin
+	else
+		echo -ne "${cyan}[+]${end}${gray} Exiftool ya instalado................. ${end}"
+		echo -e "[${yellow}!${end}]"
+	fi
 	echo -e "\n\t${blue} ** exiftool **${end}${gray} Modo de uso:${end}\n"
 	echo -e "\t${cyan} > exiftool -h ${end}\n"
 }
