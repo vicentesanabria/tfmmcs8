@@ -40,11 +40,17 @@ function marcadores () {
 			if [ -s marcadores.osint.mcs8ed.dump.sqlite ]; then
 				# Se comprueba que está instalado SQLite3
 				if [ -s /usr/bin/sqlite3 ]; then
-					# Se restauran los marcadores
-					echo -ne "${cyan}[+]${end}${gray} Importando marcadores ................. ${end}"
-					sqlite3 ~/.mozilla/firefox/*default-release/places.sqlite ".restore marcadores.osint.mcs8ed.dump.sqlite"
-					checkfin
-					echo
+					echo -e "${red}[!]${end}${yellow} Se ha detectado que posee marcadores en Firefox.\
+					Si continua se sobreescribirán. Se recomienda hacer una copia de seguridad de los actuales.\n ${end}"
+					read -p "¿Desea continuar (S/n))" choice
+					choice=${choice,,,,,}
+					if [[ $choice =~ ^(si|s|S|Si|SI| ) ]] || [[ -z $choice ]]; then
+						echo -ne "${cyan}[+]${end}${gray} Importando marcadores ................. ${end}"
+						sqlite3 ~/.mozilla/firefox/*default-release/places.sqlite ".restore marcadores.osint.mcs8ed.dump.sqlite"
+						checkfin
+						echo
+					else
+						echo -e "${cyan}[+]${end}${gray} Ejecute de nuevo el script más adelante para desplegar los marcadores ${end}"
 				else
 					echo -e "${red}[!] ERROR:${end}${yellow} SQLite3 no está instalado. Ejecute ./osintn31mcs8.sh -t para configurarlo. \n${end}"
 				fi
