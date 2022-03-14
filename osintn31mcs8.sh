@@ -148,18 +148,6 @@ function entorno_git () {
 	fi
 }
 
-					echo -e "${red}[!]${end}${yellow} Se ha detectado que posee marcadores en Firefox. Si continua se sobreescribirán.\n${end}" 
-					read -p "¿Desea continuar (S/n)? " choice
-					choice=${choice,,,,,}
-					if [[ $choice =~ ^(si|s|S|Si|SI| ) ]] || [[ -z $choice ]]; then
-						echo -ne "\n${cyan}[+]${end}${gray} Importando marcadores ................. ${end}"
-						sqlite3 ~/.mozilla/firefox/*default-release/places.sqlite ".restore marcadores.osint.mcs8ed.dump.sqlite"
-						checkfin
-						echo
-					else
-						echo -e "\n${cyan}[+]${end}${gray} Ejecute de nuevo el script más adelante para desplegar los marcadores. \n${end}"
-					fi
-
 # Función que clona los proyectos declarados en la variable $repositorios
 function clonar_proyectos () {
 	echo -e "${blue}[*]${end}${gray} Clonando repositorios: \n${end}"
