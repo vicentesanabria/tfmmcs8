@@ -1,4 +1,17 @@
 #!/bin/bash
+############################################################################
+##                    ****** osintn31mcs8.sh ******                       ##
+## Script para la instalación de software para desarrollar prácticas      ##
+## de búsqueda en fuentes abiertas (OSINT)                                ##
+##                                                                        ##
+## Master Ciberseguridad VIII edición                                     ##
+## UCAM - ElevenPath                                                      ##
+## TFM 3.1 Distribución orientada a la obtención de información en la red ##
+##                                                                        ##
+## Autor: Vicente Sanabria                                                ##
+## Fecha: Marzo 2022                                                      ##
+## Tutores: Yaiza Rubio/Felix Brezo                                       ##
+############################################################################
 
 # Tipografia
 blue="\e[0;34m\033[1m"
@@ -11,21 +24,9 @@ end="\033[0m\e[0m"
 blink="\e[5m"
 endblink="\e[25m"
 
-# Variables
-tf=`readlink -f $0`
-path_actual=`dirname $tf`
-declare githome
-repositorios="laramies/theHarvester lanmaster53/recon-ng Datalux/Osintgram smicallef/spiderfoot mxrch/GHunt MrTuxx/SocialPwned"
-vermaltego="Maltego.v4.3.0.deb"
-
-trap ctrlc INT
-
-function ctrlc () {
-	echo -e "\n${gray}[*]${end}${red} ¡Ups, algo no te ha gustado!. Cancelando ...  ${end}"
-	tput cnorm
-	exit 2
-}
-
+# Función que instala los marcadores OSINT en Firefox. 
+# Este debe haber sido iniciado en algún momento y 
+# permanecer cerrado durante la importación
 function marcadores () {
 	# Se utiliza una copia de seguridad SQLite3 con los marcadores
 	echo -e "${blue}[*]${end}${gray} Marcadores en Firefox: \n${end}"
@@ -59,12 +60,12 @@ function marcadores () {
 	fi
 }
 
+# Función que instala los requisitos necesarios para 
+# la implementación del resto de herramientas
 function requisitos () {
-	#DEPS="git python3 python3-venv libreadline-dev mongodb pdfgrep default-jre sqlite3"
-	DEPS="git python3 python3-venv libreadline-dev default-jre sqlite3 tor google-chrome-stable"
+	DEPS="git python3 python3-venv libreadline-dev mongodb pdfgrep default-jre sqlite3 tor google-chrome-stable"
 
 	# Dependencias para instalar Google Chrome - Necesiario para GHunt y SocialPwned
-
 	echo -ne "${blue}[*]${end}${gray} Añadiendo repositorio de Google Chrome .......... ${end}"
 	wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add - > /dev/null 2>&1
 	sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' > /dev/null 2>&1
@@ -120,6 +121,8 @@ function checkfin () {
 	fi
 }
 
+# Función que prepara el entorno para la descarga de 
+# repositorios GIT
 function entorno_git () {
 	echo -ne "${blue}[*]${end}${gray} Entorno para alojar los repositorios GIT ................. ${end}"
 	# Se crea la carpeta para alojar los repositorios
@@ -139,6 +142,7 @@ function entorno_git () {
 	fi
 }
 
+# Función que clona los proyectos declarados en la variable $repositorios
 function clonar_proyectos () {
 	echo -e "${blue}[*]${end}${gray} Clonando repositorios: \n${end}"
 	for repositorio in $repositorios; do
@@ -406,6 +410,21 @@ function ayuda () {
 	echo -e "	${yellow}-p: ${end} Instala las aplicaciones de escritorio"
 	echo -e "	${yellow}-t: ${end} Instala los requisitos necesarios de las aplicaciones"
 	echo
+}
+
+# Variables
+tf=`readlink -f $0`
+path_actual=`dirname $tf`
+declare githome
+repositorios="laramies/theHarvester lanmaster53/recon-ng Datalux/Osintgram smicallef/spiderfoot mxrch/GHunt MrTuxx/SocialPwned"
+vermaltego="Maltego.v4.3.0.deb"
+
+trap ctrlc INT
+
+function ctrlc () {
+	echo -e "\n${gray}[*]${end}${red} ¡Ups, algo no te ha gustado!. Cancelando ...  ${end}"
+	tput cnorm
+	exit 2
 }
 
 # FUNCION MAIN
