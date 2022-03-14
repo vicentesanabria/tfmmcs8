@@ -137,9 +137,9 @@ function entorno_git () {
 		checkfin
 	else
 		for repo in $repositorios; do
-			repotmp="$(echo $repositorio | awk -F '/' '{print $NF}')"
+			repotmp="$(echo $repo | awk -F '/' '{print $NF}')"
 			if [ -d $path_actual/git/$repotmp ]; then
-				echo -e "${red}[!]${end}${yellow} Se ha detectado que posee una carpeta de la herramienta $repotemp.\n${end}"
+				echo -e "\n\n${red}[!]${end}${yellow} Se ha detectado que posee una carpeta de la herramienta $repotmp.\n${end}"
 				echo -e "${red}[!]${end}${yellow} Si continua, podrían sobreescribirse ficheros de configuración que haya podido modificar.\n${end}"
 				read -p "¿Desea continuar (s/N)? " choice
 				choice=${choice,,,,}
