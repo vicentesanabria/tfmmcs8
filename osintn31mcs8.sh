@@ -40,9 +40,9 @@ function marcadores () {
 			if [ -s marcadores.osint.mcs8ed.dump.sqlite ]; then
 				# Se comprueba que está instalado SQLite3
 				if [ -s /usr/bin/sqlite3 ]; then
-					echo -e "${red}[!]${end}${yellow} Se ha detectado que posee marcadores en Firefox.\
-					Si continua se sobreescribirán. Se recomienda hacer una copia de seguridad de los actuales.\n ${end}"
-					read -p "¿Desea continuar (S/n))" choice
+					echo -e "${red}[!]${end}${yellow} Se ha detectado que posee marcadores en Firefox. Si continua se sobreescribirán.\n${end}" 
+					echo -e "${red}[!]${end}{yellow} Se recomienda hacer una copia de seguridad de los actuales.\n ${end}"
+					read -p "${cyan}[?]${end} ¿Desea continuar (S/n)?" choice
 					choice=${choice,,,,,}
 					if [[ $choice =~ ^(si|s|S|Si|SI| ) ]] || [[ -z $choice ]]; then
 						echo -ne "${cyan}[+]${end}${gray} Importando marcadores ................. ${end}"
