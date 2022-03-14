@@ -405,7 +405,7 @@ function exiftool () {
 	dpkg -s libimage-exiftool-perl > /dev/null 2>&1
 	if [ "$(echo $?)" != "0" ]; then	
 		echo -ne "${cyan}[+]${end}${gray} Instalando exiftool ................. ${end}"
-		sudo apt install exiftool -y > /dev/null 2>&1
+		sudo apt install libimage-exiftool-perl -y > /dev/null 2>&1
 		checkfin
 	else
 		echo -ne "${cyan}[+]${end}${gray} Exiftool ya instalado................. ${end}"
