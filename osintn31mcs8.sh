@@ -41,11 +41,10 @@ function marcadores () {
 				# Se comprueba que está instalado SQLite3
 				if [ -s /usr/bin/sqlite3 ]; then
 					echo -e "${red}[!]${end}${yellow} Se ha detectado que posee marcadores en Firefox. Si continua se sobreescribirán.\n${end}" 
-					echo -e "${red}[!]${end}${yellow} Se recomienda hacer una copia de seguridad antes de los actuales.\n ${end}"
-					read -p "¿Desea continuar (S/n)?" choice
+					read -p "¿Desea continuar (S/n)? " choice
 					choice=${choice,,,,,}
 					if [[ $choice =~ ^(si|s|S|Si|SI| ) ]] || [[ -z $choice ]]; then
-						echo -ne "${cyan}[+]${end}${gray} Importando marcadores ................. ${end}"
+						echo -ne "\n${cyan}[+]${end}${gray} Importando marcadores ................. ${end}"
 						sqlite3 ~/.mozilla/firefox/*default-release/places.sqlite ".restore marcadores.osint.mcs8ed.dump.sqlite"
 						checkfin
 						echo
@@ -149,11 +148,34 @@ function entorno_git () {
 	fi
 }
 
+					echo -e "${red}[!]${end}${yellow} Se ha detectado que posee marcadores en Firefox. Si continua se sobreescribirán.\n${end}" 
+					read -p "¿Desea continuar (S/n)? " choice
+					choice=${choice,,,,,}
+					if [[ $choice =~ ^(si|s|S|Si|SI| ) ]] || [[ -z $choice ]]; then
+						echo -ne "\n${cyan}[+]${end}${gray} Importando marcadores ................. ${end}"
+						sqlite3 ~/.mozilla/firefox/*default-release/places.sqlite ".restore marcadores.osint.mcs8ed.dump.sqlite"
+						checkfin
+						echo
+					else
+						echo -e "\n${cyan}[+]${end}${gray} Ejecute de nuevo el script más adelante para desplegar los marcadores. \n${end}"
+					fi
+
 # Función que clona los proyectos declarados en la variable $repositorios
 function clonar_proyectos () {
 	echo -e "${blue}[*]${end}${gray} Clonando repositorios: \n${end}"
 	for repositorio in $repositorios; do
 		repotemp="$(echo $repositorio | awk -F '/' '{print $NF}')"
+		if [ -d $githome/$repotemp ]; then
+			echo -e "${red}[!]${end}${yellow} Se ha detectado que posee una carpeta de la herramienta $repotemp.\n${end}"
+			echo -e "${red}[!]${end}${yellow} Si continua, podrían sobreescribirse ficheros de configuración que haya podido modificar.\n${end}"
+			read -p "¿Desea continuar (S/n)? " choice
+			choice=${choice,,,,,}
+			if [[ $choice =~ ^(si|s|S|Si|SI| ) ]] || [[ -z $choice ]]; then
+				echo
+			else
+				continue
+			fi
+		fi
 		echo -ne "${cyan}[+]${end}${gray} Respositorio  $repotemp ............. ${end}"
 		git clone https://github.com/$repositorio $githome/$repotemp > /dev/null 2>&1
 		checkfin
