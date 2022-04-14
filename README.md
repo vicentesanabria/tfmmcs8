@@ -30,7 +30,7 @@ Uso: ./osintn31mcs8.sh [opcion]
 
 Opciones:
 
-	-h:  Ofrece esta ayuda"
+	-h:  Ofrece esta ayuda
 	
 	-a: Instala todos los elementos (requisitos, marcadores y aplicaciones)
 	
