@@ -21,8 +21,11 @@ ejecutado en distribuciones Debian.
 Instalación
 
 git clone https://github.com/vicentesanabria/tfmmcs8.git
+
 cd tfmmcs8
+
 ./osintn31mcs8.sh -h
+
 
 ----------------------------------------------------------------------------------
 
