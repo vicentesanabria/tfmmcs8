@@ -18,6 +18,14 @@ ejecutado en distribuciones Debian.
 
 ----------------------------------------------------------------------------------
 
+Instalación
+
+git clone https://github.com/vicentesanabria/tfmmcs8.git
+cd tfmmcs8
+./osintn31mcs8.sh -h
+
+----------------------------------------------------------------------------------
+
 Uso de la herramienta
 
 NOTA: No lanzar como usuario root ni sudoer. Si que se precisa que el usuario sea 
