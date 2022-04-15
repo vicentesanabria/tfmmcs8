@@ -36,9 +36,15 @@ $ osintn31mcs8.sh
 
 Uso: ./osintn31mcs8.sh [opcion]
 
-"Opciones:"
-	-h:  Ofrece esta ayuda"
+Opciones:
+
+	-h:  Ofrece esta ayuda
+	
 	-a: Instala todos los elementos (requisitos, marcadores y aplicaciones)
+	
 	-b: Instala los marcadores en Firefox
+	
 	-p: Instala las aplicaciones de escritorio
+	
 	-t: Instala los requisitos necesarios de las aplicaciones
+	
